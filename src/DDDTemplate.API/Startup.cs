@@ -22,6 +22,7 @@ public class Startup(IConfiguration configuration)
     services.AddDomainServices();
     services.AddApplicationServices();
     services.AddRepositories();
+    services.ConfigureJWT(Configuration.ReadTokenConfig());
   }
 
   public void Configure(WebApplication app, IWebHostEnvironment environment)

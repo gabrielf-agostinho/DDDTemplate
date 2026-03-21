@@ -1,4 +1,6 @@
+using DDDTemplate.Application.Interfaces;
 using DDDTemplate.Application.Interfaces.Base;
+using DDDTemplate.Application.Services;
 using DDDTemplate.Domain.Interfaces.Services.Base;
 using Microsoft.Extensions.DependencyInjection;
 
@@ -24,5 +26,7 @@ public static class DependencyInjector
       .AsMatchingInterface()
       .WithScopedLifetime()
     );
+
+    services.AddScoped<IAuthAppService, AuthAppService>();
   }
 }

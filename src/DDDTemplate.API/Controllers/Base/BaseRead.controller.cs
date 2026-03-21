@@ -17,17 +17,17 @@ public abstract class BaseReadController<TEntity, TId, TGetDTO, TPostDTO, TPutDT
     throw new CustomExceptions.MethodNotAllowedException(ControllerContext.ActionDescriptor.ControllerName);
   }
 
-  public override IActionResult Insert([FromHeader] string Authorization, [FromBody] TPostDTO dto)
+  public override IActionResult Insert([FromBody] TPostDTO dto)
   {
     return NotAllowedResponse();
   }
 
-  public override IActionResult Update([FromHeader] string Authorization, [FromBody] TPutDTO dto)
+  public override IActionResult Update([FromBody] TPutDTO dto)
   {
     return NotAllowedResponse();
   }
 
-  public override IActionResult Delete([FromHeader] string Authorization, [FromRoute] TId id)
+  public override IActionResult Delete([FromRoute] TId id)
   {
     return NotAllowedResponse();
   }

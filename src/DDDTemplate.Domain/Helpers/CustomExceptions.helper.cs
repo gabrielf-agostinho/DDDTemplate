@@ -33,4 +33,24 @@ public static class CustomExceptions
   {
     public override EResponseCodes ResponseCode => EResponseCodes.METHOD_NOT_ALLOWED;
   }
+
+  public class EmailNotFoundException(string email) : CustomException($"There is no registered user with the email {email}.")
+  {
+    public override EResponseCodes ResponseCode => EResponseCodes.NOT_FOUND;
+  }
+
+  public class WrongPasswordException(string email) : CustomException($"Wrong password for email: {email}.")
+  {
+    public override EResponseCodes ResponseCode => EResponseCodes.BAD_REQUEST;
+  }
+
+  public class InvalidTokenException() : CustomException("Invalid Token.")
+  {
+    public override EResponseCodes ResponseCode => EResponseCodes.BAD_REQUEST;
+  }
+
+  public class UnauthorizedException(string message) : CustomException(message)
+  {
+    public override EResponseCodes ResponseCode => EResponseCodes.UNAUTHORIZED;
+  }
 }

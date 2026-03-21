@@ -10,5 +10,9 @@ public class UserMap : CommonMap<User, Guid>
   {
     base.Configure(builder);
     builder.Property(c => c.Name).IsRequired();
+    builder.Property(c => c.Email).IsRequired();
+    builder.Property(c => c.Password).IsRequired();
+
+    builder.HasIndex(c => c.Email).IsUnique();
   }
 }

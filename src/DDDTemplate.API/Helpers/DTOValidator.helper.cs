@@ -1,4 +1,3 @@
-using DDDTemplate.Application.DTOs.Base;
 using DDDTemplate.Domain.Helpers;
 using Microsoft.AspNetCore.Mvc.ViewFeatures;
 
@@ -6,7 +5,7 @@ namespace DDDTemplate.API.Helpers;
 
 public static class DTOValidator
 {
-  public static void CheckForErrors<TDTO, TId>(ViewDataDictionary ViewData) where TDTO : BaseDTO<TId>
+  public static void CheckForErrors<TDTO>(ViewDataDictionary ViewData)
   {
     List<string>? errors = ViewData.ModelState.Values
               .SelectMany(modelState => modelState.Errors)
