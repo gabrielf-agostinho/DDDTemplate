@@ -40,7 +40,14 @@ public class Startup(IConfiguration configuration, IWebHostEnvironment environme
     services.AddOpenApi();
 
     if (!Environment.IsEnvironment("Testing"))
-      services.AddPostgresDatabase<DatabaseContext>(Configuration.GetConnectionString("Database")!, true);
+    {
+      string CONNECTION_STRING = Configuration.GetConnectionString("Database")!;
+
+      services.AddPostgresDatabase<DatabaseContext>(CONNECTION_STRING, true);
+      services.AddHealthCheckConfiguration(CONNECTION_STRING);
+    }
+    else
+      services.AddHealthCheckConfiguration();
 
     services.AddDomainServices();
     services.AddApplicationServices();
@@ -57,6 +64,7 @@ public class Startup(IConfiguration configuration, IWebHostEnvironment environme
     app.UseHttpsRedirection();
     app.UseAuthentication();
     app.UseAuthorization();
+    app.MapHealthCheckConfiguration();
     app.MapControllers();
 
     if (Environment.IsDevelopment())

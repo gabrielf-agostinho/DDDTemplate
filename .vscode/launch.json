@@ -7,6 +7,7 @@
       "request": "launch",
       "program": "${workspaceFolder}/src/DDDTemplate.API/bin/Debug/net10.0/DDDTemplate.API.dll",
       "cwd": "${workspaceFolder}/src/DDDTemplate.API",
+      "preLaunchTask": "build-api",
       "env": {
         "ASPNETCORE_ENVIRONMENT": "Development"
       }
@@ -17,6 +18,7 @@
       "request": "launch",
       "program": "${workspaceFolder}/src/DDDTemplate.API/bin/Debug/net10.0/DDDTemplate.API.dll",
       "cwd": "${workspaceFolder}/src/DDDTemplate.API",
+      "preLaunchTask": "build-api",
       "env": {
         "ASPNETCORE_ENVIRONMENT": "Testing"
       }
