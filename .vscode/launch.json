@@ -1,0 +1,66 @@
+{
+  "version": "0.2.0",
+  "configurations": [
+    {
+      "name": ".NET API",
+      "type": "coreclr",
+      "request": "launch",
+      "program": "${workspaceFolder}/src/DDDTemplate.API/bin/Debug/net10.0/DDDTemplate.API.dll",
+      "cwd": "${workspaceFolder}/src/DDDTemplate.API",
+      "env": {
+        "ASPNETCORE_ENVIRONMENT": "Development"
+      }
+    },
+    {
+      "name": ".NET API (Testing)",
+      "type": "coreclr",
+      "request": "launch",
+      "program": "${workspaceFolder}/src/DDDTemplate.API/bin/Debug/net10.0/DDDTemplate.API.dll",
+      "cwd": "${workspaceFolder}/src/DDDTemplate.API",
+      "env": {
+        "ASPNETCORE_ENVIRONMENT": "Testing"
+      }
+    },
+    {
+      "name": "EF Migration Add",
+      "type": "coreclr",
+      "request": "launch",
+      "program": "dotnet",
+      "args": [
+        "ef",
+        "migrations",
+        "add",
+        "${input:migrationName}",
+        "--project",
+        "src/DDDTemplate.Infrastructure",
+        "--startup-project",
+        "src/DDDTemplate.API"
+      ],
+      "cwd": "${workspaceFolder}"
+    },
+    {
+      "name": "EF Database Update",
+      "type": "coreclr",
+      "request": "launch",
+      "program": "dotnet",
+      "args": [
+        "ef",
+        "database",
+        "update",
+        "--project",
+        "src/DDDTemplate.Infrastructure",
+        "--startup-project",
+        "src/DDDTemplate.API"
+      ],
+      "cwd": "${workspaceFolder}"
+    }
+  ],
+  "inputs": [
+    {
+      "id": "migrationName",
+      "type": "promptString",
+      "description": "Migration name",
+      "default": "NewMigration"
+    }
+  ]
+}

@@ -10,7 +10,7 @@ public interface IBaseAppService<TEntity, TId, TGetDTO, TPostDTO, TPutDTO> where
   Pagination<TGetDTO> GetPaged(int? skip, int? take, Expression<Func<TEntity, bool>>? filter = null, Expression<Func<TEntity, object>>? orderByField = null, string orderByDirection = "DESC");
   TGetDTO GetById(TId id);
   TId Insert(TPostDTO dto);
-  void Update(TPutDTO dto);
+  void Update(TId id, TPutDTO dto);
   void Update(TPutDTO dto, TEntity entity);
   void Delete(TId id);
 }

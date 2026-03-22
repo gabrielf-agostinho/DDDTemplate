@@ -35,7 +35,7 @@ public abstract class BaseController<TEntity, TId, TGetDTO, TPostDTO, TPutDTO>(I
   }
 
   [HttpGet]
-  [Route("{id:int}")]
+  [Route("{id}")]
   public virtual IActionResult GetById([FromRoute] TId id)
   {
     TGetDTO dto = AppService.GetById(id) ?? throw new CustomExceptions.NotFoundException<TId>(typeof(TEntity).Name, id);
@@ -53,17 +53,17 @@ public abstract class BaseController<TEntity, TId, TGetDTO, TPostDTO, TPutDTO>(I
   }
 
   [HttpPut]
-  [Route("")]
-  public virtual IActionResult Update([FromBody] TPutDTO dto)
+  [Route("{id}")]
+  public virtual IActionResult Update([FromRoute] TId id, [FromBody] TPutDTO dto)
   {
     DTOValidator.CheckForErrors<TPutDTO>(ViewData);
 
-    AppService.Update(dto);
+    AppService.Update(id, dto);
     return new Response(EResponseCodes.OK);
   }
 
   [HttpDelete]
-  [Route("{id:int}")]
+  [Route("{id}")]
   public virtual IActionResult Delete([FromRoute] TId id)
   {
     AppService.Delete(id);

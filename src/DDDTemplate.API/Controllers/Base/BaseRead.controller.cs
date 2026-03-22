@@ -22,7 +22,7 @@ public abstract class BaseReadController<TEntity, TId, TGetDTO, TPostDTO, TPutDT
     return NotAllowedResponse();
   }
 
-  public override IActionResult Update([FromBody] TPutDTO dto)
+  public override IActionResult Update([FromRoute] TId id, [FromBody] TPutDTO dto)
   {
     return NotAllowedResponse();
   }

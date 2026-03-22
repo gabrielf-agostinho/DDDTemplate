@@ -1,8 +1,15 @@
 using DDDTemplate.IntegrationTests.Fixtures;
+using DDDTemplate.IntegrationTests.Helpers;
 
 namespace DDDTemplate.IntegrationTests.API;
 
-public class IntegrationTestsBase(CustomWebApplicationFactory<Program> factory) : IClassFixture<CustomWebApplicationFactory<Program>>
+public class IntegrationTestsBase : IClassFixture<CustomWebApplicationFactory<Program>>
 {
-  protected readonly HttpClient Client = factory.CreateClient();
+  protected readonly HttpClient Client;
+
+  public IntegrationTestsBase(CustomWebApplicationFactory<Program> factory)
+  {
+    Client = factory.CreateClient();
+    AuthHelper.AuthenticateAsync(Client).GetAwaiter().GetResult();
+  }
 }

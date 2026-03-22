@@ -1,0 +1,5 @@
+{
+  "dotnet.defaultSolution": "DDDTemplate.slnx",
+  "omnisharp.enableEditorConfigSupport": true,
+  "csharp.format.enable": true
+}

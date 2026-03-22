@@ -5,6 +5,8 @@ using DDDTemplate.Application.Utils;
 using DDDTemplate.Domain.Interfaces.Entities;
 using DDDTemplate.Domain.Interfaces.Services.Base;
 using DDDTemplate.Application.DTOs.Base;
+using DDDTemplate.Application.Extensions;
+using DDDTemplate.Domain.Helpers;
 
 namespace DDDTemplate.Application.Services.Base;
 
@@ -52,14 +54,15 @@ public abstract class BaseAppService<TEntity, TId, TGetDTO, TPostDTO, TPutDTO>(I
     return Service.Insert(dto.Adapt<TEntity>());
   }
 
-  public virtual void Update(TPutDTO dto)
+  public virtual void Update(TId id, TPutDTO dto)
   {
     ApplicationUtils.CheckIdField<TPutDTO, TId>(dto);
+    
+    var entityId = (!GenericUtils.IsDefault(dto.Id) ? dto.Id : id) ?? throw new CustomExceptions.IdCannotBeNullException();
+    var entity = Service.GetById(entityId) ?? throw new CustomExceptions.NotFoundException<TId>(typeof(TEntity).Name, entityId);
 
-    TEntity entity = Service.GetById(dto.Id!);
-
-    if (entity is not null)
-      Service.Update(dto.Adapt(entity));
+    dto.Adapt(entity);
+    Service.Update(entity);
   }
 
   public virtual void Update(TPutDTO dto, TEntity entity)

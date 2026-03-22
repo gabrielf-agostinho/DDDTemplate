@@ -28,6 +28,8 @@ public class Startup(IConfiguration configuration, IWebHostEnvironment environme
     options.JsonSerializerOptions.WriteIndented = true;
   }
 
+  public void ConfigureMapster() => MappingConfig.RegisterMappings();
+
   public void ConfigureServices(IServiceCollection services)
   {
     services
