@@ -8,9 +8,10 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.ApplicationModels;
 using Scalar.AspNetCore;
 
-public class Startup(IConfiguration configuration)
+public class Startup(IConfiguration configuration, IWebHostEnvironment environment)
 {
   public IConfiguration Configuration { get; } = configuration;
+  public IWebHostEnvironment Environment { get; } = environment;
 
   private static void ConfigureControllers(MvcOptions options)
   {
@@ -35,16 +36,19 @@ public class Startup(IConfiguration configuration)
 
     services.AddEndpointsApiExplorer();
     services.AddOpenApi();
-    services.AddPostgresDatabase<DatabaseContext>(Configuration.GetConnectionString("Database")!, true);
+
+    if (!Environment.IsEnvironment("Testing"))
+      services.AddPostgresDatabase<DatabaseContext>(Configuration.GetConnectionString("Database")!, true);
+
     services.AddDomainServices();
     services.AddApplicationServices();
     services.AddRepositories();
     services.ConfigureJWT(Configuration.ReadTokenConfig());
   }
 
-  public void Configure(WebApplication app, IWebHostEnvironment environment)
+  public void Configure(WebApplication app)
   {
-    environment.ApplicationName = Configuration.ReadApplicationConfig().Name!;
+    Environment.ApplicationName = Configuration.ReadApplicationConfig().Name!;
 
     app.UseMiddleware<ExceptionMiddleware>();
     app.UseCors(CorsConfig.DEFAULT_POLICY);
@@ -53,7 +57,7 @@ public class Startup(IConfiguration configuration)
     app.UseAuthorization();
     app.MapControllers();
 
-    if (environment.IsDevelopment())
+    if (Environment.IsDevelopment())
     {
       app.MapOpenApi();
 
