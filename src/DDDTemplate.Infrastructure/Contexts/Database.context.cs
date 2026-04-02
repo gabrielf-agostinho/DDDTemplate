@@ -6,6 +6,8 @@ namespace DDDTemplate.Infrastructure.Contexts;
 public class DatabaseContext(DbContextOptions<DatabaseContext> options) : DbContext(options)
 {
   public DbSet<User> Users { get; set; }
+  public DbSet<Module> Modules { get; set; }
+  public DbSet<UserModule> UserModules { get; set; }
 
   protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
   {
