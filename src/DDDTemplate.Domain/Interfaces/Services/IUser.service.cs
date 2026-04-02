@@ -9,4 +9,5 @@ public interface IUserService : IBaseService<User, Guid>
   User GetByEmailAndPassword(string email, string password);
   void UpdateRefreshToken(Guid userId, string refreshToken, TimeSpan refreshTokenExpiration);
   void UpdatePassword(Guid userId, string password);
+  void FillDefaultModules(User user);
 }

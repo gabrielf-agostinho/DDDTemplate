@@ -10,4 +10,6 @@ public class User : CommonEntity<Guid>
   public required string Password { get; set; }
   public string? RefreshToken { get; set; }
   public DateTime? RefreshTokenExpiration { get; set; }
+
+  public ICollection<UserModule> UserModules { get; set; } = [];
 }

@@ -1,5 +1,6 @@
 using DDDTemplate.Domain.Entities;
 using DDDTemplate.Infrastructure.Mappings.Base;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
 namespace DDDTemplate.Infrastructure.Mappings;
@@ -14,5 +15,7 @@ public class UserMap : CommonMap<User, Guid>
     builder.Property(c => c.Password).IsRequired();
 
     builder.HasIndex(c => c.Email).IsUnique();
+
+    builder.HasMany(c => c.UserModules).WithOne(c => c.User).HasForeignKey(c => c.UserId).OnDelete(DeleteBehavior.Cascade);
   }
 }

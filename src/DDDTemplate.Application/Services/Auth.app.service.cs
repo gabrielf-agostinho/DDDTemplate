@@ -120,6 +120,7 @@ public class AuthAppService(IUserService userService, ITokenConfig tokenConfig) 
       throw new CustomExceptions.EmailAlreadyRegisteredException(userPostDTO.Email);
 
     var user = userPostDTO.Adapt<User>();
+    UserService.FillDefaultModules(user);
     UserService.Insert(user);
   }
 
