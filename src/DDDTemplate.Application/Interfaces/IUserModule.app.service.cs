@@ -4,4 +4,7 @@ using DDDTemplate.Domain.Entities;
 
 namespace DDDTemplate.Application.Interfaces;
 
-public interface IUserModuleAppService : IBaseAppService<UserModule, int, UserModuleGetDTO, UserModulePostDTO, UserModulePutDTO>;
+public interface IUserModuleAppService : IBaseAppService<UserModule, int, UserModuleGetDTO, UserModulePostDTO, UserModulePutDTO>
+{
+  IEnumerable<ModuleGetDTO> GetByCurrentUser();
+}
