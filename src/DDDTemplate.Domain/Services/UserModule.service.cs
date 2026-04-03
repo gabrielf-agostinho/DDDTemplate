@@ -37,19 +37,19 @@ public class UserModuleService(
 
       foreach (var module in allModules)
       {
-        if (module.ParentId.HasValue && allowed.Contains((EModules)module.Id) && !allowed.Contains((EModules)module.ParentId.Value))
+        if (module.ParentId.HasValue && allowed.Contains(module.Id) && !allowed.Contains(module.ParentId.Value))
         {
-          allowed.Add((EModules)module.ParentId.Value);
+          allowed.Add(module.ParentId.Value);
           added = true;
         }
       }
 
     } while (added);
 
-    return allModules.Where(m => allowed.Contains((EModules)m.Id)).ToList();
+    return allModules.Where(m => allowed.Contains(m.Id)).ToList();
   }
 
-  private static List<Module> BuildTree(int? parentId, List<Module> modules)
+  private static List<Module> BuildTree(EModules? parentId, List<Module> modules)
   {
     return modules
       .Where(m => m.ParentId == parentId)
@@ -59,6 +59,7 @@ public class UserModuleService(
         Label = m.Label,
         Icon = m.Icon,
         ParentId = m.ParentId,
+        RouterLink = m.RouterLink,
         Items = BuildTree(m.Id, modules)
       })
       .ToList();

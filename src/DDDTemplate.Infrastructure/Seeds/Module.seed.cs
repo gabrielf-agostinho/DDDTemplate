@@ -17,7 +17,7 @@ public static class ModuleSeed
   {
     return new Module
     {
-      Id = (int)EModules.ADMINISTRATIVE,
+      Id = EModules.ADMINISTRATIVE,
       Label = "Administrativo",
       Icon = "pi pi-building",
     };
@@ -27,10 +27,11 @@ public static class ModuleSeed
   {
     return new Module
     {
-      ParentId = (int)EModules.ADMINISTRATIVE,
-      Id = (int)EModules.USERS,
+      ParentId = EModules.ADMINISTRATIVE,
+      Id = EModules.USERS,
       Label = "Usuários",
-      Icon = "pi pi-users"
+      Icon = "pi pi-users",
+      RouterLink = "usuarios"
     };
   }
 }

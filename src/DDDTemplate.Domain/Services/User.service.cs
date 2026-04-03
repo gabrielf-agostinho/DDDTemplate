@@ -27,7 +27,7 @@ public class UserService(IUserRepository userRepository) : BaseService<User, Gui
   private static UserModule GetUserModule(Guid userId, EModules module, bool insert, bool update, bool delete) => new() 
   {
     UserId = userId, 
-    ModuleId = (int)module,
+    ModuleId = module,
     Insert = insert,
     Update = update,
     Delete = delete

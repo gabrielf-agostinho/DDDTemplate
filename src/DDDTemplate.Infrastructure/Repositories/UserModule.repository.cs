@@ -15,6 +15,6 @@ public class UserModuleRepository(DatabaseContext databaseContext) : BaseReposit
       .Set<UserModule>()
       .Where(x => x.UserId == userId)
       .AsNoTracking()
-      .Select(x => (EModules)x.ModuleId)];
+      .Select(x => x.ModuleId)];
   }
 }
