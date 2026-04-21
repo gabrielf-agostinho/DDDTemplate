@@ -31,6 +31,21 @@ public class UserModuleService(
     return userModulesIds.Contains(module);
   }
 
+  public bool CanInsert(EModules module)
+  {
+    return UserModuleRepository.CanInsert((Guid)CurrentUserService.UserId!, module);
+  }
+
+  public bool CanUpdate(EModules module)
+  {
+    return UserModuleRepository.CanUpdate((Guid)CurrentUserService.UserId!, module);
+  }
+
+  public bool CanDelete(EModules module)
+  {
+    return UserModuleRepository.CanDelete((Guid)CurrentUserService.UserId!, module);
+  }
+
   private static List<Module> GetAllowedModulesWithParents(IEnumerable<Module> allModules, IEnumerable<EModules> moduleIds)
   {
     var allowed = new HashSet<EModules>(moduleIds);

@@ -15,4 +15,17 @@ public class UserModuleAppService(IUserModuleService userModuleService) : BaseAp
   public IEnumerable<ModuleGetDTO> GetByCurrentUser() => UserModuleService.GetByCurrentUser().Adapt<IEnumerable<ModuleGetDTO>>();
 
   public bool HasModuleAccess(EModules module) => UserModuleService.HasModuleAccess(module);
+
+  public bool HasModuleAccessWithMethod(EModules module, EMethods method)
+  {
+    return method switch
+    {
+      EMethods.GET => HasModuleAccess(module),
+      EMethods.POST => UserModuleService.CanInsert(module),
+      EMethods.PUT => UserModuleService.CanUpdate(module),
+      EMethods.PATCH => UserModuleService.CanUpdate(module),
+      EMethods.DELETE => UserModuleService.CanDelete(module),
+      _ => false,
+    };
+  }
 }

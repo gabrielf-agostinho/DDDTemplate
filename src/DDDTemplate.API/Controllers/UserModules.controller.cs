@@ -25,4 +25,11 @@ public class UserModulesController(IUserModuleAppService userModuleAppService, I
   {
     return new Response(EResponseCodes.OK, UserModuleAppService.HasModuleAccess(module));
   }
+
+  [HttpGet]
+  [Route("has-module-access/{module}/{method}")]
+  public virtual IActionResult HasModuleAccessWithMethod(EModules module, EMethods method)
+  {
+    return new Response(EResponseCodes.OK, UserModuleAppService.HasModuleAccessWithMethod(module, method));
+  }
 }

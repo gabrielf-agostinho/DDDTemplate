@@ -17,4 +17,34 @@ public class UserModuleRepository(DatabaseContext databaseContext) : BaseReposit
       .AsNoTracking()
       .Select(x => x.ModuleId)];
   }
+
+  public bool CanInsert(Guid userId, EModules module)
+  {
+    return DatabaseContext
+      .Set<UserModule>()
+      .Where(x => x.UserId == userId && x.ModuleId == module)
+      .AsNoTracking()
+      .Select(x => x.Insert)
+      .FirstOrDefault() || false;
+  }
+
+  public bool CanUpdate(Guid userId, EModules module)
+  {
+    return DatabaseContext
+      .Set<UserModule>()
+      .Where(x => x.UserId == userId && x.ModuleId == module)
+      .AsNoTracking()
+      .Select(x => x.Update)
+      .FirstOrDefault() || false;
+  }
+
+  public bool CanDelete(Guid userId, EModules module)
+  {
+    return DatabaseContext
+      .Set<UserModule>()
+      .Where(x => x.UserId == userId && x.ModuleId == module)
+      .AsNoTracking()
+      .Select(x => x.Delete)
+      .FirstOrDefault() || false;
+  }
 }

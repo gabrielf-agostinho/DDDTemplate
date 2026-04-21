@@ -8,4 +8,7 @@ public interface IUserModuleService : IBaseService<UserModule, int>
 {
   IEnumerable<Module> GetByCurrentUser();
   bool HasModuleAccess(EModules module);
+  bool CanInsert(EModules module);
+  bool CanUpdate(EModules module);
+  bool CanDelete(EModules module);
 }

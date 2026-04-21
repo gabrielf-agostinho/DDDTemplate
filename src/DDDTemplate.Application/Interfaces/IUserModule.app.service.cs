@@ -9,4 +9,5 @@ public interface IUserModuleAppService : IBaseAppService<UserModule, int, UserMo
 {
   IEnumerable<ModuleGetDTO> GetByCurrentUser();
   bool HasModuleAccess(EModules module);
+  bool HasModuleAccessWithMethod(EModules module, EMethods method);
 }
