@@ -104,7 +104,7 @@ public class AuthAppService(IUserService userService, ITokenConfig tokenConfig) 
     var user = UserService.GetByEmailAndPassword(authDTO.Email, authDTO.Password) ?? throw new CustomExceptions.WrongPasswordException(authDTO.Email);
 
     if (!user.IsActive)
-      throw new CustomExceptions.UnauthorizedException("User is not active.");
+      throw new CustomExceptions.UnauthorizedException("Usuário não está ativo.");
 
     var token = GenerateTokenDTO(user);
 
@@ -145,10 +145,10 @@ public class AuthAppService(IUserService userService, ITokenConfig tokenConfig) 
     var user = UserService.GetById(userId) ?? throw new CustomExceptions.NotFoundException<Guid>(typeof(User).Name, userId);
 
     if (refreshToken != user.RefreshToken)
-      throw new CustomExceptions.UnauthorizedException("Invalid refresh token.");
+      throw new CustomExceptions.UnauthorizedException("Autenticação inválida.");
 
     if (DateTime.UtcNow >= user.RefreshTokenExpiration)
-      throw new CustomExceptions.UnauthorizedException("Refresh token expired.");
+      throw new CustomExceptions.UnauthorizedException("Autenticação expirada.");
 
     var token = GenerateTokenDTO(user);
 

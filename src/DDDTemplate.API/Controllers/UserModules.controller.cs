@@ -18,4 +18,11 @@ public class UserModulesController(IUserModuleAppService userModuleAppService, I
   {
     return new Response(EResponseCodes.OK, UserModuleAppService.GetByCurrentUser());
   }
+
+  [HttpGet]
+  [Route("has-module-access/{module}")]
+  public virtual IActionResult HasModuleAccess(EModules module)
+  {
+    return new Response(EResponseCodes.OK, UserModuleAppService.HasModuleAccess(module));
+  }
 }

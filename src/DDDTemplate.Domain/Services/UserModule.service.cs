@@ -25,6 +25,12 @@ public class UserModuleService(
     return BuildTree(null, allowedModules);
   }
 
+  public bool HasModuleAccess(EModules module)
+  {
+    var userModulesIds = UserModuleRepository.GetModulesByUser((Guid)CurrentUserService.UserId!);
+    return userModulesIds.Contains(module);
+  }
+
   private static List<Module> GetAllowedModulesWithParents(IEnumerable<Module> allModules, IEnumerable<EModules> moduleIds)
   {
     var allowed = new HashSet<EModules>(moduleIds);
